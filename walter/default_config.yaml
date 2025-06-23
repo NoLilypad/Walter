@@ -1,0 +1,8 @@
+ollama:
+  model: llama3.2:3b
+  temperature: 0.2
+  url: http://localhost:11434/api/chat
+mistral:
+  model: "codestral-2501"
+  api_key: "MISTRAL_API_KEY"
+provider: ollama

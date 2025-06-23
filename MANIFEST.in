@@ -1,0 +1,2 @@
+include walter/default_config.yaml
+include walter/default_prompt.md
