@@ -8,8 +8,14 @@ It is similar to [shell-gpt](https://github.com/TheR1D/shell_gpt), but simpler a
 ## Installation
 We recommend using [pipx](https://pypa.github.io/pipx/) for isolated installation:
 
+```bash
+pipx install git+https://github.com/NoLilypad/Walter
+```
+
+or
 
 ```bash
+git clone git@github.com:NoLilypad/Walter.git
 cd Walter
 pipx install .
 ```
@@ -30,5 +36,15 @@ On first run, Walter creates a configuration file in your user config directory 
 - Supports local LLMs (Ollama, etc.)
 - Easy configuration and extensibility
 
----
-For more details, see the code or run `walter help`.
+## Why Walter ?
+Walter is very similar to [shell-gpt](https://github.com/TheR1D/shell_gpt) in its use, but much simpler.
+One can easily compare the two tools, yet Walter has some advantages : 
+- simple and unique use case : generating a command
+- easy to configure
+- Ollama natively integrated
+- edit feature to modify a generated command
+- easy to modify custom prompt in the config folder
+
+## Helping
+
+Any suggestion or pull request is welcom ! 
