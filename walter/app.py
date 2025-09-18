@@ -14,7 +14,7 @@ def main():
     config = Config()
     asker = Asker(config)
     printer = Printer()
-    action_selector = ActionSelector()
+    action_selector = ActionSelector(config)
 
     user_prompt = " ".join(sys.argv[1:])
 
