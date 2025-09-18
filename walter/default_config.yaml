@@ -6,3 +6,4 @@ mistral:
   model: "codestral-2501"
   api_key: "MISTRAL_API_KEY"
 provider: ollama
+editor: nano
