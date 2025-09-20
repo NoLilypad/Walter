@@ -7,7 +7,8 @@ from walter.prompt import Prompt
 from walter.asker import Asker
 
 class ActionSelector:
-    def __init__(self):
+    def __init__(self, config=None):
+        self.config = config
         self.actions = {
             '': self.execute,
             'e': self.edit,
@@ -32,9 +33,18 @@ class ActionSelector:
             return action(**kwargs)
         return None
 
+    def _get_editor(self):
+        # Priority: config['editor'] > $EDITOR > 'nano'
+        if self.config and hasattr(self.config, 'get_config'):
+            cfg = self.config.get_config()
+            editor = cfg.get('editor') if isinstance(cfg, dict) else None
+            if editor:
+                return editor
+        return os.environ.get("EDITOR", "nano")
+
     def open_config(self, **kwargs):
         config_path = kwargs.get("config_path")
-        editor = os.environ.get("EDITOR", "nano")
+        editor = self._get_editor()
         if config_path:
             try:
                 subprocess.run([editor, config_path])
@@ -46,7 +56,7 @@ class ActionSelector:
         sys.exit(0)
 
     def show_help(self, **kwargs):
-        print("Help:\n- config: open the configuration file\n- help: show this help\n- ...")
+        print("""Help: \n- config: open the configuration file \n- help: show this help \n- When the prompt has been returned, you can press: \n\t- 'e' to edit \n\t- 'q' to quit.""")
         sys.exit(0)
 
     def execute(self, **kwargs):
@@ -65,7 +75,7 @@ class ActionSelector:
     def edit(self, **kwargs):
         prompt: Prompt = kwargs["prompt"]
         command = prompt.get_history()[-1]["content"]
-        editor = os.environ.get("EDITOR", "nano")
+        editor = self._get_editor()
         try:
             with tempfile.NamedTemporaryFile(mode="w+", delete=False) as tf:
                 tf.write(command)

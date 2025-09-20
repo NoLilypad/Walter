@@ -1,6 +1,6 @@
-import requests
-from mistralai import Mistral
 import sys
+from ollama import Client as OllamaClient
+from mistralai import Mistral
 
 from walter.config import Config
 from walter.prompt import Prompt
@@ -18,24 +18,21 @@ class Asker:
     def ollama(self, prompt: Prompt):
         print("Asking to ollama")
         ollama_config = self.config["ollama"]
-        data = {
-            "model": ollama_config["model"],
-            "messages": prompt.get_history(),
-            "stream": False,
-            "options": {
-                "temperature": ollama_config["temperature"]
-            }
-        }
         try:
-            response = requests.post(ollama_config["url"], json=data, timeout=10)
-            response.raise_for_status()
-            resp = response.json()
-            return resp["message"].get("content", "")
-        except requests.RequestException as e:
-            print(f"[Walter] API error (Ollama): {e}")
-            sys.exit(1)
+            client = OllamaClient(host=ollama_config.get("url", "http://localhost:11434"))
+            # The ollama Python package expects messages as a list of dicts with 'role' and 'content'
+            messages = prompt.get_history()
+            # Remove /api/chat from url if present for base host
+            base_url = ollama_config["url"].replace("/api/chat", "")
+            client = OllamaClient(host=base_url)
+            response = client.chat(
+                model=ollama_config["model"],
+                messages=messages,
+                options={"temperature": ollama_config["temperature"]}
+            )
+            return response['message']['content']
         except Exception as e:
-            print(f"[Walter] Unexpected error (Ollama): {e}")
+            print(f"[Walter] API error (Ollama): {e}")
             sys.exit(1)
 
     def mistral(self, prompt: Prompt):
