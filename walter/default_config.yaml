@@ -1,9 +1,19 @@
+# Walter 2.0 Configuration
+# Available providers: ollama, gemini, mistral
+
+provider: ollama
+editor: nano
+stream: true
+
 ollama:
   model: llama3.2:3b
   temperature: 0.2
-  url: http://localhost:11434/api/chat
+  url: http://localhost:11434
+
+gemini:
+  model: gemini-2.0-flash
+  api_key: ""
+
 mistral:
-  model: "codestral-2501"
-  api_key: "MISTRAL_API_KEY"
-provider: ollama
-editor: nano
+  model: codestral-latest
+  api_key: ""

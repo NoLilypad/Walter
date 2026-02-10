@@ -1,3 +1,39 @@
+Metadata-Version: 2.4
+Name: walter
+Version: 2.0.0
+Summary: Walter: Modern CLI command generator with TUI interface.
+Author: NoLilypad
+Project-URL: Homepage, https://github.com/NoLilypad/Walter
+Project-URL: Repository, https://github.com/NoLilypad/Walter
+Keywords: cli,llm,command,generator,tui,ollama,gemini,mistral
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Utilities
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: PyYAML>=6.0
+Requires-Dist: platformdirs>=3.0
+Requires-Dist: rich>=13.0
+Requires-Dist: prompt-toolkit>=3.0
+Provides-Extra: ollama
+Requires-Dist: ollama>=0.3; extra == "ollama"
+Provides-Extra: gemini
+Requires-Dist: google-genai>=1.0; extra == "gemini"
+Provides-Extra: mistral
+Requires-Dist: mistralai>=1.0; extra == "mistral"
+Provides-Extra: all
+Requires-Dist: ollama>=0.3; extra == "all"
+Requires-Dist: google-genai>=1.0; extra == "all"
+Requires-Dist: mistralai>=1.0; extra == "all"
+
 # Walter 2.0
 
 A modern CLI command generator with a beautiful TUI interface. Uses local or cloud LLMs to generate shell commands from natural language.
